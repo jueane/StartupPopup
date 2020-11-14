@@ -23,7 +23,7 @@ namespace StartupPopup
     /// </summary>
     public partial class MainWindow : Window
     {
-        const string path = "config.ini";
+        const string path = "todoconfig.ini";
         Dictionary<string, string> configDict = new Dictionary<string, string>();
 
         List<string> todoList = new List<string>();
