@@ -34,7 +34,8 @@ namespace StartupPopup
         {
             InitializeComponent();
 
-            LoadConfigFile();
+            // LoadConfigFile();
+            ReadRemoteFile();
 
             for (int i = 0; i < todoList.Count; i++)
             {
@@ -53,6 +54,32 @@ namespace StartupPopup
 
             listBox.Items.Clear();
             listBox.ItemsSource = chkboxList;
+        }
+
+        void ReadRemoteFile()
+        {
+            var fileTask = new System.Net.Http.HttpClient().GetStringAsync("http://gia.jueane.top/todo.config.txt");
+            var ret = fileTask.Result;
+            var lines = ret.Split('\n');
+            Console.WriteLine("line len:" + lines.Length);
+            foreach (var line in lines)
+            {
+                line?.Trim();
+
+                var pair = line.Split('=');
+                if (pair?.Length != 2)
+                    continue;
+
+                var k = pair[0];
+                var v = pair[1];
+                if (k.Equals("todo"))
+                {
+                    todoList.Add(v);
+                    continue;
+                }
+
+                configDict.Add(k, v);
+            }
         }
 
         void LoadConfigFile()
@@ -85,7 +112,7 @@ namespace StartupPopup
                 configDict.Add(k, v);
             }
         }
-
+        
         private void Chkbox_Checked(object sender, RoutedEventArgs e)
         {
             foreach (var chk in chkboxList)
