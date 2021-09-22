@@ -58,7 +58,7 @@ namespace StartupPopup
 
         void ReadRemoteFile()
         {
-            var fileTask = new System.Net.Http.HttpClient().GetStringAsync("http://jueane.top/todo.config.txt");
+            var fileTask = new System.Net.Http.HttpClient().GetStringAsync("http://jueanv.com/todo.config.txt");
             var ret = fileTask.Result;
             var lines = ret.Split('\n');
             Console.WriteLine("line len:" + lines.Length);
